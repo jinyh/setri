@@ -1,22 +1,22 @@
 # Setri - 配电网业扩项目评审辅助系统
 
-基于 LLM 的配电网业扩工程评审辅助工具，实现专家意见与设计文件、技术规范的自动三元关联标注。
+基于 LLM 的配电网业扩工程评审辅助工具，实现技术规范条款提取、跨规范冲突检测，以及专家意见与设计文件、技术规范的自动三元关联标注。
 
 ## 核心能力
 
-- **Co-Reviewer**：专家意见 ↔ 设计文件 ↔ 技术规范的三元关联自动标注与质量校验
 - **Reg-Extractor**：从多份技术规范 PDF 中按专题提取条款、自动分类、检测跨规范冲突
 
 ## 项目结构
 
 ```
 .claude/skills/
-├── co-reviewer/          # 三元关联标注 Skill
-│   ├── SKILL.md
-│   └── scripts/          # 文件解析、标注校验等工具脚本
 └── reg-extractor/        # 技术规范条款提取 Skill
-    ├── SKILL.md
-    └── scripts/          # 关键词扫描、冲突检测、输出组装
+    ├── README.md
+    ├── SKILL.md          # 6 Phase 工作流定义
+    └── scripts/
+        ├── scan_sources.py       # PDF 关键词扫描
+        ├── detect_conflicts.py   # 冲突候选预筛
+        └── assemble_output.py    # 输出组装与校验
 ```
 
 ## 设计原则
