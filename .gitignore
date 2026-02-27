@@ -1,0 +1,25 @@
+# 输出数据
+data/
+
+# 项目材料（PDF/XLSX/DOCX）
+技术规范文件/
+项目测试数据/
+产品需求文档.docx
+*.pdf
+*.xlsx
+*.xls
+*.docx
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# 环境变量
+.env
+
+# OS
+.DS_Store
+Thumbs.db
