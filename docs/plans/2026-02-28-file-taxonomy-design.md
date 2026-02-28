@@ -1,6 +1,6 @@
 # 设计方案：项目文件分类体系 + PRD 疏漏修补
 
-> 日期：2026-02-28 | 关联 PRD 版本：v0.2 → v0.3
+> 日期：2026-02-28 | 关联 PRD 版本：v0.2 → v0.5
 
 ## Context
 
@@ -51,12 +51,11 @@
 │   ├── P-06 评分文件
 │   ├── P-07 收口评审专家意见
 │   ├── P-08 评审意见
-│   ├── P-09 发文意见（WORD版）
-│   ├── P-10 发文意见
-│   └── P-11 项目评审记录
+│   ├── P-09 发文意见
+│   └── P-10 项目评审记录
 │
 └── 设计文件类
-    ├── 辅助文件 (A-xx)   ← Phase 1 引入
+    ├── 共享辅助文件 (A-01~A-09)  ← 不区分送审/审定版
     │   ├── A-01 设计委托书          [必备]
     │   ├── A-02 内审意见            [必备]
     │   ├── A-03 其他依据            [必备]
@@ -67,49 +66,76 @@
     │   ├── A-08 主要设备材料清册     [必备]
     │   └── A-09 案例分析报告        [可选]
     │
-    └── 专业图纸 (D-xx)   ← Phase 1 引入
-        ├── D-01 信息采集
-        ├── D-02 通信
-        ├── D-03 低压电缆(0.4kV)
-        ├── D-04 高压电缆(10kV)
-        ├── D-05 开关站电气一次
-        ├── D-06 街坊站电气一次
-        └── D-07 站内电缆
+    ├── 送审版 (submitted/)
+    │   ├── 可研报告                  [必备, 版本敏感, A-10]
+    │   ├── 专业图纸 (D-xx)          ← 每项含 wiring(电气接线图) + layout(平面布置图) 两个逻辑子类型
+    │   │   ├── D-01 开关站电气一次
+    │   │   ├── D-02 街坊站电气一次
+    │   │   ├── D-03 站内电缆
+    │   │   ├── D-04 高压电缆(10kV)
+    │   │   ├── D-05 低压电缆(0.4kV)
+    │   │   ├── D-06 通信
+    │   │   └── D-07 信息采集
+    │   └── 工程估算 (E-xx)          ← 与 D-xx 一一对应
+    │       ├── E-01 开关站工程估算
+    │       ├── E-02 街坊站工程估算
+    │       ├── E-03 站内电缆工程估算
+    │       ├── E-04 高压电缆工程估算
+    │       ├── E-05 低压电缆工程估算
+    │       ├── E-06 通信工程估算
+    │       └── E-07 信息采集工程估算
+    │
+    └── 审定版 (approved/)           ← 结构同送审版
+        ├── 可研报告
+        ├── drawings/
+        └── estimates/
 ```
+
+> **图纸逻辑子类型说明**：每个 D-xx 在逻辑上包含"电气接线图 (wiring)"和"平面布置图 (layout)"两个子类型。系统通过文件名关键词识别（总平图/平面图/布置图 → layout；接线图/电气/系统图 → wiring），无法区分时标记为"综合图纸 (mixed)"，不报错。不在物理目录中创建子目录。
 
 ### 2.2 文件类型注册表（file_types）
 
-| type_id | canonical_name | category | required | phase | synonyms |
-|---------|---------------|----------|----------|-------|----------|
-| P-01 | 关键节点时间 | process | — | 2 | — |
-| P-02 | 项目概况信息 | process | — | 2 | — |
-| P-03 | 设计人员信息 | process | — | 2 | — |
-| P-04 | 预审专家意见 | process | — | 2 | — |
-| P-05 | 正式评审专家意见 | process | — | 2 | — |
-| P-06 | 评分文件 | process | — | 2 | — |
-| P-07 | 收口评审专家意见 | process | — | 2 | — |
-| P-08 | 评审意见 | process | — | 2 | — |
-| P-09 | 发文意见（WORD版） | process | — | 2 | — |
-| P-10 | 发文意见 | process | — | 2 | — |
-| P-11 | 项目评审记录 | process | — | 2 | — |
-| A-01 | 设计委托书 | auxiliary | yes | 1 | 设计中标通知书或委托书 |
-| A-02 | 内审意见 | auxiliary | yes | 1 | 内审意见及签到单 |
-| A-03 | 其他依据 | auxiliary | yes | 1 | 其它依据, 其他 |
-| A-04 | 投资汇总表 | auxiliary | yes | 1 | — |
-| A-05 | 财务审核表 | auxiliary | no | 1 | — |
-| A-06 | 供电方案审核单 | auxiliary | no | 1 | — |
-| A-07 | 通信方案确认单 | auxiliary | no | 1 | — |
-| A-08 | 主要设备材料清册 | auxiliary | yes | 1 | 主要设备材料清册（pdf、word版） |
-| A-09 | 案例分析报告 | auxiliary | no | 1 | — |
-| D-01 | 信息采集 | drawing | yes | 1 | 用电信息采集 |
-| D-02 | 通信 | drawing | yes | 1 | 内线通信 |
-| D-03 | 低压电缆(0.4kV) | drawing | yes | 1 | 内线电缆-0.4kV, 0.4kV电缆 |
-| D-04 | 高压电缆(10kV) | drawing | yes | 1 | 内线电缆-10kV, 10kV电缆 |
-| D-05 | 开关站电气一次 | drawing | yes | 1 | KT站 |
-| D-06 | 街坊站电气一次 | drawing | per_project | 1 | PT-x站, PML |
-| D-07 | 站内电缆 | drawing | per_project | 1 | — |
+| type_id | canonical_name | category | required | phase | version_sensitive | sub_types | synonyms |
+|---------|---------------|----------|----------|-------|:-:|---|----------|
+| P-01 | 关键节点时间 | process | — | 2 | — | — | — |
+| P-02 | 项目概况信息 | process | — | 2 | — | — | — |
+| P-03 | 设计人员信息 | process | — | 2 | — | — | — |
+| P-04 | 预审专家意见 | process | — | 2 | — | — | — |
+| P-05 | 正式评审专家意见 | process | — | 2 | — | — | — |
+| P-06 | 评分文件 | process | — | 2 | — | — | — |
+| P-07 | 收口评审专家意见 | process | — | 2 | — | — | — |
+| P-08 | 评审意见 | process | — | 2 | — | — | — |
+| P-09 | 发文意见 | process | — | 2 | — | — | — |
+| P-10 | 项目评审记录 | process | — | 2 | — | — | — |
+| A-01 | 设计委托书 | auxiliary | yes | 1 | false | — | 设计中标通知书或委托书 |
+| A-02 | 内审意见 | auxiliary | yes | 1 | false | — | 内审意见及签到单 |
+| A-03 | 其他依据 | auxiliary | yes | 1 | false | — | 其它依据, 其他 |
+| A-04 | 投资汇总表 | auxiliary | yes | 1 | false | — | — |
+| A-05 | 财务审核表 | auxiliary | no | 1 | false | — | — |
+| A-06 | 供电方案审核单 | auxiliary | no | 1 | false | — | — |
+| A-07 | 通信方案确认单 | auxiliary | no | 1 | false | — | — |
+| A-08 | 主要设备材料清册 | auxiliary | yes | 1 | false | — | 主要设备材料清册（pdf、word版） |
+| A-09 | 案例分析报告 | auxiliary | no | 1 | false | — | — |
+| A-10 | 可研报告 | auxiliary | yes | 1 | **true** | — | 可行性研究报告, 初设报告, 设计报告, 可研报告批复 |
+| D-01 | 开关站电气一次 | drawing | yes | 1 | true | wiring, layout | KT站 |
+| D-02 | 街坊站电气一次 | drawing | per_project | 1 | true | wiring, layout | PT-x站, PML |
+| D-03 | 站内电缆 | drawing | per_project | 1 | true | wiring, layout | — |
+| D-04 | 高压电缆(10kV) | drawing | yes | 1 | true | wiring, layout | 内线电缆-10kV, 10kV电缆 |
+| D-05 | 低压电缆(0.4kV) | drawing | yes | 1 | true | wiring, layout | 内线电缆-0.4kV, 0.4kV电缆 |
+| D-06 | 通信 | drawing | yes | 1 | true | wiring, layout | 内线通信 |
+| D-07 | 信息采集 | drawing | yes | 1 | true | wiring, layout | 用电信息采集 |
+| E-01 | 开关站工程估算 | estimate | yes | 1 | true | — | 工程估算书, 工程概算书 |
+| E-02 | 街坊站工程估算 | estimate | per_project | 1 | true | — | 工程估算书, 工程概算书 |
+| E-03 | 站内电缆工程估算 | estimate | per_project | 1 | true | — | 工程估算书, 工程概算书 |
+| E-04 | 高压电缆工程估算 | estimate | yes | 1 | true | — | 工程估算书, 工程概算书 |
+| E-05 | 低压电缆工程估算 | estimate | yes | 1 | true | — | 工程估算书, 工程概算书 |
+| E-06 | 通信工程估算 | estimate | yes | 1 | true | — | 工程估算书, 工程概算书 |
+| E-07 | 信息采集工程估算 | estimate | yes | 1 | true | — | 工程估算书, 工程概算书 |
 
 > `per_project` 表示数量因项目而异（街坊站数量不固定）。
+> `version_sensitive`：`false` 表示送审版/审定版共享同一份文件，`true` 表示两个版本可能不同。A-01~A-09 经验证在三个测试项目中送审版/审定版完全一致，故标记为共享。
+> `sub_types`：`wiring` = 电气接线图，`layout` = 平面布置图。系统通过文件名关键词识别，无法区分时标记为 `mixed`（综合图纸）。
+> E-xx 的 synonyms 还需包含格式变体：软件版(.bpz17)、PDF版，以及全角/半角括号差异。
 
 ---
 
@@ -127,19 +153,30 @@ data/projects/{project_id}/
 │   ├── P-04_预审专家意见/
 │   └── ...
 └── design/                            ← 设计文件（Phase 1）
+    ├── auxiliary/                     ← 共享辅助文件（A-01~A-09，不区分版本）
+    │   ├── A-01_设计委托书/
+    │   ├── A-02_内审意见/
+    │   └── ...
     ├── submitted/                     ← 送审版
-    │   ├── auxiliary/
-    │   │   ├── A-01_设计委托书/
-    │   │   ├── A-02_内审意见/
-    │   │   └── ...
-    │   └── drawings/
-    │       ├── D-01_信息采集/
-    │       ├── D-05_开关站/
-    │       ├── D-06_街坊站_01/
+    │   ├── 可研报告/                 ← 版本敏感辅助文件（A-10）
+    │   ├── drawings/                  ← 专业图纸
+    │   │   ├── D-01_开关站/
+    │   │   ├── D-02_街坊站_01/
+    │   │   ├── D-02_街坊站_02/
+    │   │   ├── D-03_站内电缆/
+    │   │   ├── D-04_高压电缆/
+    │   │   ├── D-05_低压电缆/
+    │   │   ├── D-06_通信/
+    │   │   └── D-07_信息采集/
+    │   └── estimates/                 ← 工程估算
+    │       ├── E-01_开关站/
+    │       ├── E-02_街坊站_01/
+    │       ├── E-03_站内电缆/
     │       └── ...
-    └── approved/                      ← 审定版（结构同 submitted）
-        ├── auxiliary/
-        └── drawings/
+    └── approved/                      ← 审定版
+        ├── 可研报告/
+        ├── drawings/
+        └── estimates/
 ```
 
 ### 3.2 设计要点
