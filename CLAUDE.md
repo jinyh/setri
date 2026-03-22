@@ -25,7 +25,7 @@ PRD 已迭代至 v0.7（管道式架构重写），当前主要任务：
 
 | 路径 | 说明 |
 |------|------|
-| `docs/prd.md` | 产品需求文档（当前 v0.7，管道式架构） |
+| `docs/prd.md` | 产品需求文档（当前 v0.7.2，管道式架构） |
 | `docs/archive/prd-v0.6-20260322.md` | PRD v0.6 归档（阶段制架构） |
 | `docs/file_checklist.md` | 文件完整性清单（基于 3 个测试项目分析） |
 | `docs/architecture/` | 架构分析文档（test-data-diff-analysis.json, directory-structure.md） |
