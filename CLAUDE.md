@@ -6,10 +6,11 @@
 
 ## 当前阶段
 
-**管道式架构 — P2 文件整理与解析**
+**统一交互工作台构建 — PRD v0.8**
 
-PRD 已迭代至 v0.7（管道式架构重写），当前主要任务：
+PRD 已迭代至 v0.8（新增统一交互工作台 §10），当前主要任务：
 
+- 统一工作台：PRD v0.8 §10 已定义，待实现
 - P1 规范库构建：待启动（~15 份规范文件全量提取）
 - P2 文件整理：3 个测试项目整理中（第 1 批 1-10 的前 3 个）
 - P3-P5：依赖 P1/P2 完成后启动
@@ -25,8 +26,9 @@ PRD 已迭代至 v0.7（管道式架构重写），当前主要任务：
 
 | 路径 | 说明 |
 |------|------|
-| `docs/prd.md` | 产品需求文档（当前 v0.7.2，管道式架构） |
+| `docs/prd.md` | 产品需求文档（当前 v0.8，含统一交互工作台 §10） |
 | `docs/archive/prd-v0.6-20260322.md` | PRD v0.6 归档（阶段制架构） |
+| `docs/archive/prd-v0.7.2-20260323.md` | PRD v0.7.2 归档（管道式架构） |
 | `docs/file_checklist.md` | 文件完整性清单（基于 3 个测试项目分析） |
 | `docs/architecture/` | 架构分析文档（test-data-diff-analysis.json, directory-structure.md） |
 | `技术规范文件/` | 原始技术规范 PDF（~15 份，P1 数据源） |
@@ -34,6 +36,8 @@ PRD 已迭代至 v0.7（管道式架构重写），当前主要任务：
 | `data/projects/` | 标准化项目目录（P2 产出） |
 | `data/regulations/` | 规范库（P1 产出，待构建） |
 | `data/knowledge/` | 知识库与规则库（P3/P4 产出，待构建） |
+| `web/` | 前端工作台（待实现：Next.js + React + shadcn/ui） |
+| `server/` | 后端 API（待实现：FastAPI + Celery） |
 | `.claude/skills/file-reorganizer/SKILL.md` | 文件整理 Skill（含同义词映射表） |
 
 ## 工作约定
@@ -75,13 +79,14 @@ data/projects/{project_id}/
 └── 解析结果/                           # P2 解析输出（JSON）
 ```
 
-## 技术栈（规划）
+## 技术栈
 
-- 后端：Python (FastAPI)
-- 前端：Vue 3 / React
-- VLM：Gemini 3.0 Flash → Qwen VL（微调私有化）
+- 后端：Python (FastAPI) + Celery + Redis
+- 前端：React + Next.js + TypeScript + shadcn/ui + Tailwind CSS
+- VLM：Gemini 3.0 Flash（MVP）→ Qwen VL（微调私有化）
 - 数据库：PostgreSQL
-- 任务调度：Celery
+- 认证：JWT（内网部署）
+- 部署：内网本地服务器
 
 ## 术语表
 
