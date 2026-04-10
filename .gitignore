@@ -3,8 +3,10 @@ data/
 !data/projects/manifest.json
 
 # 项目材料（PDF/XLSX/DOCX）
+合同/
 技术规范文件/
 项目测试数据/
+项目管理/
 产品需求文档.docx
 *.pdf
 *.xlsx
