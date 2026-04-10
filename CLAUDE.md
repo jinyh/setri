@@ -32,7 +32,7 @@ PRD 已迭代至 v0.8（新增统一交互工作台 §10），当前主要任务
 | `docs/archive/prd-v0.6-20260322.md` | PRD v0.6 归档（阶段制架构） |
 | `docs/archive/prd-v0.7.2-20260323.md` | PRD v0.7.2 归档（管道式架构） |
 | `docs/file_checklist.md` | 文件完整性清单（基于 3 个测试项目分析） |
-| `docs/architecture/` | 架构分析文档（test-data-diff-analysis.json, directory-structure.md） |
+| `docs/archive/` | 历史分析归档（含早期 test-data-diff-analysis、directory-structure、旧开发计划等） |
 | `技术规范文件/` | 原始技术规范 PDF（~15 份，P1 数据源） |
 | `项目测试数据/` | 3 个项目的送审版/审定版原始数据 |
 | `data/projects/` | 标准化项目目录（P2 产出） |
@@ -46,7 +46,7 @@ PRD 已迭代至 v0.8（新增统一交互工作台 §10），当前主要任务
 
 - PRD 修改必须走 iterative-prd 流程：更新内容 → 升版 → 追加变更记录 → git commit
 - PRD 版本格式：v0.x（草稿），v1.0（正式版，需用户明确确认）
-- 数据分析结论写入 `docs/architecture/` 目录，JSON 格式
+- 新的数据分析结论写入 `docs/architecture/` 目录，JSON 格式；早期分析文档统一归档到 `docs/archive/`
 - 系统输入以"送审版"为基准（详见 PRD §4）
 - 文件类型识别需支持模糊匹配，容忍命名不一致（详见 PRD §8.4）
 - 目录命名统一使用中文

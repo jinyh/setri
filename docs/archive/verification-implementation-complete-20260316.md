@@ -1,3 +1,7 @@
+> 归档说明：本文档记录早期 `file-reorganizer` 验证脚本的实施结果，已于 2026-04-10 归档，不再作为当前主线文档。
+>
+> 当前仅保留为历史实现参考；相关总结见 `docs/archive/verification-summary-20260316.md`。
+
 # 验证脚本实施完成报告
 
 ## 实施状态：✅ 完成
@@ -106,7 +110,7 @@ python scripts/verify_reorganization.py --project C109HZ22A062 --format json
 
 ## 文档
 
-- 详细文档：`docs/verification-summary.md`
+- 详细文档：`docs/archive/verification-summary-20260316.md`
 - 验证计划：用户提供的验证计划文档
 - 代码位置：`scripts/verify_reorganization.py`
 

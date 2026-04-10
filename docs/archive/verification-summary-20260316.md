@@ -1,3 +1,7 @@
+> 归档说明：本文档记录早期 `file-reorganizer` 验证脚本的总结，已于 2026-04-10 归档，不再作为当前主线文档。
+>
+> 当前仅保留为历史实现参考；相关实施报告见 `docs/archive/verification-implementation-complete-20260316.md`。
+
 # 验证脚本实施总结
 
 ## 概述
