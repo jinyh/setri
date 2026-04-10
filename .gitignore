@@ -35,3 +35,6 @@ Thumbs.db
 
 # 视觉伴侣
 .superpowers/
+
+# Git worktrees
+.worktrees/
