@@ -6,6 +6,46 @@
 
 为上海经研院配电网评审专家构建的智能辅助评审系统，以 10kV 开关站为切入点，通过"规范库→文件整理→专家知识库→交叉提炼→自动审查"五站数据管道，实现从原始资料到结构化审查意见的端到端自动化。
 
+## 快速启动
+
+### 环境准备
+```bash
+# 安装 Python 依赖
+uv sync
+
+# 或使用传统方式
+uv venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+uv pip install -e ".[llm,dev]"
+```
+
+### 开发命令
+```bash
+# 运行 CLI 工具
+uv run setri --help
+
+# 文件整理（P2）
+uv run python scripts/reorganize_files.py
+uv run python scripts/verify_reorganization.py
+
+# 规范库提取（P1）
+# （待实现）
+
+# 运行测试
+uv run pytest
+
+# 代码检查
+uv run ruff check src/
+uv run ruff format src/
+```
+
+### 前端开发（待实现）
+```bash
+cd web
+npm install
+npm run dev  # 启动开发服务器
+```
+
 ## 当前阶段
 
 **统一交互工作台构建 — PRD v1.1**
@@ -98,6 +138,62 @@ data/projects/{project_id}/
 - 数据库：PostgreSQL
 - 认证：JWT（内网部署）
 - 部署：内网本地服务器
+
+## 代码组织
+
+```
+src/setri/
+├── cli.py              # CLI 入口
+├── config.py           # 配置管理
+├── common/             # 公共工具
+├── llm/                # LLM 集成
+├── p1_regulations/     # P1 规范库构建
+└── p2_reorganize/      # P2 文件整理
+
+scripts/
+├── reorganize_files.py         # 文件整理主脚本
+├── verify_reorganization.py    # 整理结果验证
+├── fix_file_reorganization.py  # 修复整理问题
+└── cleanup_duplicates.py       # 清理重复文件
+
+data/
+├── projects/           # 标准化项目目录（P2 产出）
+├── regulations/        # 规范库（P1 产出，待构建）
+└── knowledge/          # 知识库与规则库（P3/P4 产出）
+    └── 规则库/
+        ├── source/     # Markdown 规则源文件
+        ├── compiled/   # JSON 编译规则
+        ├── templates/  # 规则模板
+        └── versions/   # 规则版本历史
+
+web/                    # 前端工作台（待实现）
+server/                 # 后端 API（待实现）
+```
+
+## 开发注意事项
+
+### 文件整理（P2）
+- 使用 `.claude/skills/file-reorganizer/SKILL.md` 中的同义词映射表
+- 文件类型识别支持模糊匹配，容忍命名不一致
+- 目录命名统一使用中文
+- 整理后使用 `verify_reorganization.py` 验证结果
+
+### 规则库（P4）
+- 规则源文件使用 Markdown（`data/knowledge/规则库/source/`）
+- 编译后的 JSON 文件在 `compiled/` 目录
+- 规则分为简单规则（结构化执行）和复杂规则（LLM 推理）
+- 模板文件在 `templates/` 目录
+
+### P1-P5 管道依赖
+- **P1 独立**：规范库构建可独立执行
+- **P2 独立**：文件整理可独立执行
+- **P3 依赖 P2**：专家知识库需要整理后的项目文件
+- **P4 = P1 ∩ P3**：规则提炼需要规范库和专家知识库
+- **P5 依赖 P4**：自动审查需要规则库
+
+### CLI 工具
+- 使用 `uv run setri` 访问 CLI 命令
+- 基于 Typer 构建，支持 `--help` 查看帮助
 
 ## 术语表
 
