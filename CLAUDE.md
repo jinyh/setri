@@ -1,6 +1,6 @@
 # Setri — 配电网业扩智能评审副驾驶 (Co-Reviewer)
 
-> 双引擎协作规则以 [AGEND.md](./AGEND.md) 为准；本文件仅负责项目背景、阶段信息、关键文件与项目约定。
+> 双引擎协作规则以 [AGENTS.md](./AGENTS.md) 为准；本文件仅负责项目背景、阶段信息、关键文件与项目约定。
 
 ## 项目概述
 
@@ -8,14 +8,15 @@
 
 ## 当前阶段
 
-**统一交互工作台构建 — PRD v0.8**
+**统一交互工作台构建 — PRD v1.1**
 
-PRD 已迭代至 v0.8（新增统一交互工作台 §10），当前主要任务：
+PRD 已迭代至 v1.1（新增 P4 规则库三层架构详细描述），当前主要任务：
 
-- 统一工作台：PRD v0.8 §10 已定义，待实现
+- 统一工作台：PRD v1.0 §10 已定义，待实现
 - P1 规范库构建：待启动（~15 份规范文件全量提取）
 - P2 文件整理：3 个测试项目整理中（第 1 批 1-10 的前 3 个）
 - P3-P5：依赖 P1/P2 完成后启动
+- P4 规则库：三层架构已定义，目录结构和模板已创建
 
 **管道依赖**：P1 独立 | P2 独立 | P3 依赖 P2 | P4 = P1 ∩ P3 | P5 依赖 P4
 
@@ -28,16 +29,24 @@ PRD 已迭代至 v0.8（新增统一交互工作台 §10），当前主要任务
 
 | 路径 | 说明 |
 |------|------|
-| `docs/prd.md` | 产品需求文档（当前 v0.8，含统一交互工作台 §10） |
+| `docs/prd.md` | 产品需求文档（当前 v1.1，含 P4 规则库三层架构 §4.4.1） |
+| `docs/archive/prd-v1.0-20260415.md` | PRD v1.0 归档 |
+| `docs/archive/prd-v0.8-20260410-pre-rewrite.md` | PRD v0.8 归档 |
 | `docs/archive/prd-v0.6-20260322.md` | PRD v0.6 归档（阶段制架构） |
 | `docs/archive/prd-v0.7.2-20260323.md` | PRD v0.7.2 归档（管道式架构） |
+| `docs/architecture/专家知识库与规则演化设计.md` | 专家知识库与规则演化设计（v0.2） |
 | `docs/file_checklist.md` | 文件完整性清单（基于 3 个测试项目分析） |
 | `docs/archive/` | 历史分析归档（含早期 test-data-diff-analysis、directory-structure、旧开发计划等） |
 | `技术规范文件/` | 原始技术规范 PDF（~15 份，P1 数据源） |
 | `项目测试数据/` | 3 个项目的送审版/审定版原始数据 |
 | `data/projects/` | 标准化项目目录（P2 产出） |
 | `data/regulations/` | 规范库（P1 产出，待构建） |
-| `data/knowledge/` | 知识库与规则库（P3/P4 产出，待构建） |
+| `data/knowledge/` | 知识库与规则库（P3/P4 产出） |
+| `data/knowledge/规则库/` | 规则库（P4 产出） |
+| `data/knowledge/规则库/source/` | Markdown 规则源文件 |
+| `data/knowledge/规则库/compiled/` | JSON 编译规则 |
+| `data/knowledge/规则库/templates/` | 规则模板 |
+| `data/knowledge/规则库/README.md` | 规则库架构说明 |
 | `web/` | 前端工作台（待实现：Next.js + React + shadcn/ui） |
 | `server/` | 后端 API（待实现：FastAPI + Celery） |
 | `.claude/skills/file-reorganizer/SKILL.md` | 文件整理 Skill（含同义词映射表） |

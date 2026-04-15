@@ -1,4 +1,4 @@
-# AGEND.md
+# AGENTS.md
 
 ## 1. 文档定位
 
@@ -14,7 +14,7 @@
 发生规则冲突时，按以下顺序执行：
 
 1. 用户的直接指令
-2. 本文件 `AGEND.md`
+2. 本文件 `AGENTS.md`
 3. [CLAUDE.md](./CLAUDE.md)
 4. 其他项目文档与历史说明
 
@@ -118,7 +118,7 @@ Claude Code 作为辅助引擎，必须遵守以下边界：
 
 各文件职责固定如下：
 
-- [AGEND.md](./AGEND.md)
+- [AGENTS.md](./AGENTS.md)
   双引擎协作章程，定义主辅关系、路由和决策优先级。
 - [CLAUDE.md](./CLAUDE.md)
   项目背景、当前阶段、关键文件、工作约定和项目事实补充。

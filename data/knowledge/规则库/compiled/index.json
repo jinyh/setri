@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2026-04-15",
+  "description": "规则库编译文件索引",
+  "categories": [
+    {
+      "name": "开关站",
+      "path": "开关站/",
+      "rule_count": 0
+    },
+    {
+      "name": "技经资料",
+      "path": "技经资料/",
+      "rule_count": 0
+    }
+  ],
+  "rules": []
+}

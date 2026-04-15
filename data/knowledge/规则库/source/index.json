@@ -1,0 +1,45 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2026-04-15",
+  "description": "规则库源文件索引",
+  "categories": [
+    {
+      "name": "开关站",
+      "path": "开关站/",
+      "subcategories": [
+        {
+          "name": "设备选型",
+          "path": "开关站/01-设备选型/",
+          "rule_count": 0
+        },
+        {
+          "name": "安全距离",
+          "path": "开关站/02-安全距离/",
+          "rule_count": 0
+        },
+        {
+          "name": "造价核查",
+          "path": "开关站/03-造价核查/",
+          "rule_count": 0
+        }
+      ]
+    },
+    {
+      "name": "技经资料",
+      "path": "技经资料/",
+      "subcategories": [
+        {
+          "name": "字段抽取",
+          "path": "技经资料/01-字段抽取/",
+          "rule_count": 0
+        },
+        {
+          "name": "一致性校验",
+          "path": "技经资料/02-一致性校验/",
+          "rule_count": 0
+        }
+      ]
+    }
+  ],
+  "rules": []
+}

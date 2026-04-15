@@ -1,6 +1,7 @@
 # 输出数据
 data/
 !data/projects/manifest.json
+!data/knowledge/规则库/
 
 # 项目材料（PDF/XLSX/DOCX）
 合同/
